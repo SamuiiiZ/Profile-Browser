@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Information of Erolon</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        scroll-behavior: smooth;
+        transition: background 0.3s ease;
+    }
+    .container {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        margin: 20px auto;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .profile-img:hover {
+        transform: scale(1.1) rotate(3deg);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+    h1 { margin-bottom: 10px; font-size: 28px; }
+    h3 { margin-top: 0; font-weight: normal; color: #dcdcdc; }
+    p { line-height: 1.5; font-size: 16px; }
+    .goal { margin-top: 15px; font-style: italic; color: #ffdd57; }
+
+    /* Buttons for scrolling */
+    .top-buttons {
+        margin: 15px 0;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .top-buttons button {
+        padding: 10px 25px;
+        border-radius: 25px;
+        background: #ffdd57;
+        color: #000;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+    }
+    .top-buttons button:hover { transform: scale(1.1); background: #ffd633; }
+
+    .skills {
+        margin-top: 20px;
+        text-align: left;
+    }
+    .skills h2 { margin-bottom: 10px; text-align: center; }
+    .skill {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s ease;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    .skill-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .skill-title { display: flex; align-items: center; }
+    .skill.visible { opacity: 1; transform: translateY(0); }
+    .skill:hover { background: rgba(255, 255, 255, 0.3); }
+    .skill i { margin-right: 10px; font-size: 20px; color: #ffdd57; }
+    .skill span { font-weight: bold; }
+    .arrow { transition: transform 0.3s ease; }
+    .skill.active .arrow { transform: rotate(90deg); }
+    .skill-description {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, opacity 0.4s ease;
+        opacity: 0;
+        font-size: 14px;
+        margin-top: 8px;
+        color: #f0f0f0;
+    }
+    .skill.active .skill-description { max-height: 100px; opacity: 1; }
+
+    .quote { margin-top: 20px; font-size: 18px; font-style: italic; padding: 10px; border-left: 5px solid #ffdd57; background: rgba(255, 255, 255, 0.1); }
+    .contact { margin-top: 20px; text-align: center; }
+    .contact a { color: #ffdd57; text-decoration: none; font-size: 18px; margin: 0 10px; display: inline-block; transition: transform 0.2s, color 0.2s; }
+    .contact a:hover { transform: scale(1.1); color: #fff; }
+    .contact a i { font-size: 24px; margin-right: 8px; }
+
+    /* Music toggle button */
+    #music-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        color: #ffdd57;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+    #music-toggle:hover { background: rgba(0, 0, 0, 0.7); transform: scale(1.1); }
+
+    /* About Me section */
+    #about {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(0,0,0,0.5);
+        border-radius: 15px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s ease;
+    }
+    #about.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+    <div class="container">
+        <img src="Jay ryan.jpg" alt="Profile Image" class="profile-img">
+        <h1>Jay Ryan L. Erolon</h1>
+        <h3>BSIT-3A</h3>
+
+        <!-- Top buttons -->
+        <div class="top-buttons">
+            <button id="scroll-about">About Me</button>
+            <button id="scroll-skills">Technical Skills</button>
+        </div>
+
+        <p>I am passionate in my course Information Technology. I am currently in my third year as a student in this program. I hope I can overcome the student life and proceed to the next level of life.</p>
+        <p class="goal"><strong>Goal after graduation:</strong> To have a stable income and live a comfortable life.</p>
+
+        <div class="skills" id="skills-section">
+            <h2>Technical Skills</h2>
+
+            <div class="skill">
+                <div class="skill-header">
+                    <div class="skill-title"><i class="fab fa-html5"></i><span>HTML</span></div>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="skill-description">Markup language for creating structured web pages.</div>
+            </div>
+            <div class="skill">
+                <div class="skill-header">
+                    <div class="skill-title"><i class="fab fa-css3-alt"></i><span>CSS</span></div>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="skill-description">Stylesheet language used to design and layout websites.</div>
+            </div>
+            <div class="skill">
+                <div class="skill-header">
+                    <div class="skill-title"><i class="fas fa-code"></i><span>C#</span></div>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="skill-description">Object-oriented programming language for desktop and web applications.</div>
+            </div>
+            <div class="skill">
+                <div class="skill-header">
+                    <div class="skill-title"><i class="fas fa-desktop"></i><span>PC Troubleshooting</span></div>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="skill-description">Diagnosing and fixing computer hardware and software issues.</div>
+            </div>
+            <div class="skill">
+                <div class="skill-header">
+                    <div class="skill-title"><i class="fas fa-database"></i><span>Database Management</span></div>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="skill-description">Designing, managing, and optimizing relational databases.</div>
+            </div>
+        </div>
+
+        <div class="quote">"If there is a will, there is a way."</div>
+
+        <div class="contact">
+            <a href="https://www.facebook.com/jayryan.erolon/" target="_blank"><i class="fab fa-facebook-square"></i> Facebook</a>
+            <a href="https://www.youtube.com/@nakano7075" target="_blank"><i class="fab fa-youtube-square"></i> YouTube</a>
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <div id="about">
+        <h2>About Me</h2>
+        <p>Hello! My name is Jay Ryan L. Erolon. I am a third-year Information Technology student. I enjoy learning about programming, web development, and database management. My goal is to build a successful career in IT and create innovative solutions that make life easier. I am always eager to learn new skills and take on challenges.</p>
+    </div>
+
+    <button id="music-toggle"><i class="fas fa-music"></i></button>
+    <audio id="bg-music" loop autoplay>
+        <source src="lofi.mp3" type="audio/mpeg">
+    </audio>
+
+<script>
+    // Scroll buttons
+    document.getElementById("scroll-about").addEventListener("click", () => {
+        document.getElementById("about").scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById("scroll-skills").addEventListener("click", () => {
+        document.getElementById("skills-section").scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Fade-in for About Me
+    const aboutSection = document.getElementById("about");
+    const aboutObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) aboutSection.classList.add("visible");
+        });
+    }, { threshold: 0.1 });
+    aboutObserver.observe(aboutSection);
+
+    // Skills reveal and toggle description
+    const skillElements = document.querySelectorAll(".skill");
+    skillElements.forEach(skill => {
+        setTimeout(() => skill.classList.add("visible"), 100);
+        skill.querySelector(".skill-header").addEventListener("click", () => {
+            skill.classList.toggle("active");
+        });
+    });
+
+    // Music toggle
+    const musicBtn = document.getElementById("music-toggle");
+    const music = document.getElementById("bg-music");
+    musicBtn.addEventListener("click", () => {
+        if(music.paused){ music.play(); }
+        else { music.pause(); }
+    });
+
+    // Change background colors on scroll
+    const container = document.querySelector('.container');
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const scrollFraction = scrollY / maxScroll;
+
+        // Blend body gradient
+        const startBody = { r: 106, g: 17, b: 203 }; // #6a11cb
+        const endBody = { r: 37, g: 117, b: 252 };   // #2575fc
+        const rBody = Math.round(startBody.r + (endBody.r - startBody.r) * scrollFraction);
+        const gBody = Math.round(startBody.g + (endBody.g - startBody.g) * scrollFraction);
+        const bBody = Math.round(startBody.b + (endBody.b - startBody.b) * scrollFraction);
+        document.body.style.background = `linear-gradient(to right, rgb(${rBody},${gBody},${bBody}), rgb(${bBody},${rBody},${gBody}))`;
+
+        // Blend container background (slightly lighter)
+        const rCont = Math.round(0 + (50) * scrollFraction);
+        const gCont = Math.round(0 + (50) * scrollFraction);
+        const bCont = Math.round(0 + (50) * scrollFraction);
+        container.style.background = `rgba(${rCont}, ${gCont}, ${bCont}, 0.5)`;
+    });
+</script>
+</body>
+</html>
